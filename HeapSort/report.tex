@@ -1,0 +1,84 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{geometry, CJKutf8}
+\geometry{margin=1.5cm, vmargin={0pt,1cm}}
+\setlength{\topmargin}{-1cm}
+\setlength{\paperheight}{29.7cm}
+\setlength{\textheight}{25.3cm}
+
+% useful packages.
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\usepackage{layout}
+\usepackage{listings}
+\usepackage{float, caption}
+
+\lstset{
+    basicstyle=\ttfamily, basewidth=0.5em
+}
+
+% some common command
+\newcommand{\dif}{\mathrm{d}}
+\newcommand{\avg}[1]{\left\langle #1 \right\rangle}
+\newcommand{\difFrac}[2]{\frac{\dif #1}{\dif #2}}
+\newcommand{\pdfFrac}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\OFL}{\mathrm{OFL}}
+\newcommand{\UFL}{\mathrm{UFL}}
+\newcommand{\fl}{\mathrm{fl}}
+\newcommand{\op}{\odot}
+\newcommand{\Eabs}{E_{\mathrm{abs}}}
+\newcommand{\Erel}{E_{\mathrm{rel}}}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhead{}
+\lhead{姚杭希, 3230102918}
+\chead{堆排序作业}
+\rhead{12.1st, 2024}
+
+\section{程序的设计思路}
+
+heapsort的思路较为简单,
+它首先将数组转换成一个最大堆结构,然后逐个从堆中取出最大元素并调整堆。
+
+让我们再来看看test的内容
+生成随机序列就用随机数取模来实现
+生成有序序列就使值与其position相等就可以
+生成逆序序列就使值恰好是size减去他的position就可以
+生成含有重复数的序列只要生成长度较小的随机序列然后复制就可以,或者干脆生成1到100的序列然后再循环
+
+check函数较为简单,只需判断vec前后值的大小即可
+
+我们复制一个vec1与初始的vec完全一样,然后分别用两种方法对其进行排序
+最后在计算时间时使用chrono来记录开始与结束的时间相减即为排序所用时间
+再将两者进行比较
+
+\section{测试的结果}
+
+经过测试我们发现面对不同情况,check的值均为yes,说明排序算法没有问题。
+测试结果一切正常
+下面将给出两种排序方式的比较,前者为我自己编的sort
+random sequence 0.5s 0.4s
+sordered sequence 0.34s 0.46s
+reverse sequence 0.36s 0.3s
+repetitive sequence 0.36s 0.39s
+
+\section{分析}
+
+堆排序的时间复杂度为 nlogn
+其中可能涉及到较多的元素比较与交换,常数因子较大，
+但是由于对于数据的有序程度不太敏感，各种测试时间差距不大
+而STL中的sortheap函数则对数据的有序性较为敏感,各种数据时间变化程度较大
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
